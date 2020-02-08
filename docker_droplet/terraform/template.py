@@ -1,8 +1,10 @@
+import pathlib
 from jinja2 import Environment, FileSystemLoader
 
 
 def create_config(droplet_name, ssh_key, project, domain) -> str:
-    templateLoader = FileSystemLoader(searchpath="terraform")
+    directory = pathlib.Path(__file__).parent.absolute()
+    templateLoader = FileSystemLoader(searchpath=directory)
     templateEnv = Environment(loader=templateLoader)
 
     providers_template = templateEnv.get_template("providers.jinja2")
