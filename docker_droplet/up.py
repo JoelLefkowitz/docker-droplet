@@ -1,7 +1,7 @@
 from os.path import abspath, dirname
 from subprocess import run
 
-from terraform.template import create_config
+from docker_droplet.terraform.template import create_config
 
 
 def set_up(droplet_name, ssh_key, token, project, domain, config_path):

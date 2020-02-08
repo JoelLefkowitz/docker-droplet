@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-from exceptions import MissingVariable, PathNotResolvable
+from docker_droplet.exceptions import MissingVariable, PathNotResolvable
 from inspect import cleandoc
 from os import environ
 from os.path import dirname, exists
 
 from docopt import docopt  # type: ignore
 
-from down import tear_down
-from up import set_up
+from docker_droplet.down import tear_down
+from docker_droplet.up import set_up
 
 CLI = cleandoc(
     """
