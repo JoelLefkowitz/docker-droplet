@@ -1,4 +1,5 @@
 # docker-droplet
+Create a single digital ocean droplet and provision it to run the docker engine over a simple cli.
 
 ## Status
 
@@ -28,19 +29,47 @@
 
 ## Motivation
 
-Intended to be used as a teaching tool.
+Creating a single droplet provisioned to use docker should be quick. Ansible and Terraform are the appropriate tools but may take long to configure for a single droplet. This package provides a simple cli to streamline the use of these tools.
 
 ### Installing
 
 Install from pypi:
 
-```
+```bash
 pip install docker-droplet
 ```
 
 ## Running the app
 
-Under development
+```bash
+Usage:
+   docker-droplet up [options]
+   docker-droplet down [options]
+```
+
+To create a terraform configuration and run an ansible playbook to install docker:
+```bash
+docker-droplet up --droplet-name steve --ssh-key /home/.ssh/steve.pub --token 12345 --config-path /Workspace/config.tf
+```
+Where the terraform configuration path defaults to "./config.tf"
+
+The droplet's name, ssh key path and digitalocean token can be given as environmnet variables:
+```bash
+export TF_VAR_DOCKER_DROPLET_DROPLET_NAME=steve
+export TF_VAR_DOCKER_DROPLET_SSH_KEY=/home/.ssh/steve.pub
+export TF_VAR_DOCKER_DROPLET_TOKEN=12345
+docker-droplet up
+```
+
+A domain and digital ocean project title can also be included
+```bash
+docker-droplet up --domain example.com --project example
+```
+
+To remove the structure simply take it down:
+```bash
+docker-droplet down --token 12345 --config-path /Workspace/config.tf
+```
 
 ## Running tests
 
