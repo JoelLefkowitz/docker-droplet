@@ -1,6 +1,7 @@
 import pathlib
 from stat import S_IEXEC
-from os.path import join, dirname, stat, chmod
+from os import chmod, stat
+from os.path import join, dirname
 from subprocess import run
 
 from docker_droplet.terraform.template import create_config
