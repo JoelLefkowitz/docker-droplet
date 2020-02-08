@@ -66,13 +66,12 @@ def main() -> None:
     domain = InputArg("domain", arguments["--domain"])
     config_path = InputArg("config_path", arguments["--config-path"])
 
-    config_path.assign_default("./config.tf")
-    config_path.validate_path()
-
     token.sync_env()
     token.set_required()
 
     if arguments["up"]:
+        config_path.assign_default("./config.tf")
+        config_path.validate_path()
 
         droplet_name.sync_env()
         droplet_name.set_required()
@@ -91,6 +90,8 @@ def main() -> None:
         )
 
     if arguments["down"]:
+        config_path.set_required()
+        config_path.validate_path()
         tear_down(token.value, config_path.value)
 
 
