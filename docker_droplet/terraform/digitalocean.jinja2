@@ -1,0 +1,32 @@
+resource "digitalocean_ssh_key" "auto_ssh_key" {
+  name       = "{{droplet_name}}-ssh-key"
+  public_key = file("{{ssh_key}}")
+}
+
+resource "digitalocean_droplet" "auto_droplet" {
+  image              = "ubuntu-18-04-x64"
+  name               = "{{droplet_name}}"
+  tags               = ["{{droplet_name}}"]
+  region             = "lon1"
+  size               = "s-1vcpu-1gb"
+  private_networking = "true"
+  ssh_keys           = [digitalocean_ssh_key.auto_ssh_key.fingerprint]
+  depends_on         = [digitalocean_ssh_key.auto_ssh_key]
+}
+{% if domain is not none %}   
+resource "digitalocean_domain" "auto_domain" {
+  name       = "{{domain}}"
+  ip_address = digitalocean_droplet.auto_droplet.ipv4_address
+  depends_on = [digitalocean_droplet.auto_droplet]
+}    
+{% endif %}
+{% if project is not none %}
+resource "digitalocean_project" "auto_project" {
+  name        = "{{project}}"
+  description = "{{project}} resources"
+  purpose     = "Simple container"
+  environment = "Development"
+  resources   = [digitalocean_droplet.auto_droplet.urn]
+  depends_on = [digitalocean_droplet.auto_droplet]
+}
+{% endif %}

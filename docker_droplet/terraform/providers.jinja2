@@ -1,0 +1,5 @@
+variable "DOCKER_DROPLET_TOKEN" {} 
+
+provider "digitalocean" {
+  token = var.DOCKER_DROPLET_TOKEN
+}
