@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 s = setup(
     name="docker-droplet",
-    version="0.1.2",
+    version="0.1.3",
     license="MIT",
     description="Create a single digital ocean droplet and provision it to run the docker engine over a simple cli",
     long_description=long_description,
