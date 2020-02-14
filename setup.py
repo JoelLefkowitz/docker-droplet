@@ -59,6 +59,7 @@ setup(
         "ansible>=2.8.0",
         "jinja2>=2.11.1",
         "doboto>=0.6.1",
+        "sphinx>=2.4.1"
     ],
     entry_points={"console_scripts": ["docker-droplet=docker_droplet.main:main"]},
     cmdclass={"docs": DocsCommand, "test": TestsCommand},
