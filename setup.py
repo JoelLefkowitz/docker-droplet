@@ -3,7 +3,7 @@ from distutils.core import setup, Command
 from unittest import TestLoader, TextTestRunner
 from sphinx.setup_command import BuildDoc
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 
 class DocsCommand(BuildDoc):

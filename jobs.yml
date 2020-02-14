@@ -1,0 +1,19 @@
+# -*- Multi Job Config -*- 
+
+jobs:
+  fmt:
+    function: common/dev_actions/fmt:main
+    targets:
+      - all
+
+  lint:
+    function: common/dev_actions/lint:main
+    targets:
+      - all
+      
+  pypi:
+    function: common/dev_actions/pypi:main
+
+projects:
+  docker-droplet:
+    path: ./docker-droplet
