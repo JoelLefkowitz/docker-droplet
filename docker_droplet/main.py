@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 
+"""
+Entrypoint for docker-droplet
+Parse command line arguments and call the selected handlers
+"""
+
 from inspect import cleandoc
 from os import environ
 from os.path import dirname, exists
 
 from docopt import docopt  # type: ignore
 
+import sys
+
+sys.path.append("..")
 from docker_droplet.down import tear_down
 from docker_droplet.exceptions import MissingVariable, PathNotResolvable
 from docker_droplet.up import set_up
@@ -32,10 +40,26 @@ class InputArg:
         self.value = None if value == "None" else value
 
     def assign_default(self, default: str) -> None:
+        """
+        If the object's value attribute is None the assign a default value
+        
+        Args:
+            default (str): 
+        """
         if not self.value:
             self.value = default
 
     def validate_path(self, check_file_exists: bool = False) -> None:
+        """
+        Check if path's directory is resolvable. Optionally check if the path itself exists.
+        
+        Args:
+            check_file_exists (bool, optional): [description]. Defaults to False.
+        
+        Raises:
+            PathNotResolvable: [description]
+            PathNotResolvable: [description]
+        """
         if not exists(dirname(self.value)):
             raise PathNotResolvable(self.name, self.value)
 
@@ -43,6 +67,9 @@ class InputArg:
             raise PathNotResolvable(self.name, self.value)
 
     def sync_env(self) -> None:
+        """
+        Synchronize the object's value with the environment variable TF_VAR_<name>
+        """
         NAME = "TF_VAR_DOCKER_DROPLET_" + self.name.upper()
         if self.value:
             environ.putenv(NAME, self.value)
@@ -58,6 +85,9 @@ class InputArg:
 
 
 def main() -> None:
+    """
+    Entry point for docker-droplet
+    """
     arguments = docopt(CLI)
     droplet_name = InputArg("droplet_name", arguments["--droplet-name"])
     ssh_key = InputArg("ssh_key", arguments["--ssh-key"])

@@ -82,7 +82,7 @@ docker-droplet down --token 12345 --config-path /Workspace/config.tf
 Tests are not included in the package build. Clone the repo to include all the source files.
 
 ```bash
-python -m  setup.py tests
+python -m  setup.py test
 ```
 
 ### What is being tested
@@ -90,12 +90,8 @@ python -m  setup.py tests
 Unittests are used to test for appropriate behavior from:
 
 * The template's loader
-* The template's output
-* The interface's accessibility
+* The interface's argument validation
 * The interface's path_validation
-* The interface's env_sync
-* The interface's default
-* The interface's required
 
 ## Docs
 

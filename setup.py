@@ -1,33 +1,41 @@
+"""
+Setup script for docker-droplet
+"""
+
 from setuptools import find_packages, setup
 from distutils.core import setup, Command
 from unittest import TestLoader, TextTestRunner
 from sphinx.setup_command import BuildDoc
 
-__version__ = "0.4.0"
+__version__ = "1.0.0"
 
 
 class DocsCommand(BuildDoc):
-    description = "Builds docs"
+    description = "Generate build configuration and make docs"
 
-    # Call BuildDoc initalizer then override version and config_dir
-    def initialize_options(self):
+    def initialize_options(self) -> None:
+        """  
+        Docs command override. Call the parent initializer then add version and config directory
+        """
         super().initialize_options()
         self.version = __version__
         self.config_dir = "./docker_droplet/docs"
-        
 
-# Vanilla wrapper command for unittest
+
 class TestsCommand(Command):
-    description = "Runs tests"
+    description = "Discover and run tests"
     user_options = []
 
-    def initialize_options(self):
+    def initialize_options(self) -> None:
         pass
 
-    def finalize_options(self):
+    def finalize_options(self) -> None:
         pass
 
-    def run(self):
+    def run(self) -> None:
+        """
+        Discover and run tests        
+        """
         suite = TestLoader().discover("./docker_droplet/tests")
         TextTestRunner().run(suite)
 
@@ -45,7 +53,7 @@ setup(
     url="https://github.com/JoelLefkowitz/docker-droplet",
     include_package_data=True,
     package_data={"": ["**/*yml", "**/*.jinja2"]},
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=["tests"]),
     install_requires=[
         "docopts>=0.6.1",
         "ansible>=2.8.0",
@@ -53,7 +61,7 @@ setup(
         "doboto>=0.6.1",
     ],
     entry_points={"console_scripts": ["docker-droplet=docker_droplet.main:main"]},
-    cmdclass={"docs": DocsCommand, "tests": TestsCommand},
+    cmdclass={"docs": DocsCommand, "test": TestsCommand},
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
     author_email="joellefkowitz@hotmail.com",

@@ -4,7 +4,7 @@ project = "docker-droplet"
 copyright = "2020, Joel Lefkowitz"
 author = "Joel Lefkowitz"
 
-master_doc = 'docker_droplet/docs/modules'
+master_doc = "docker_droplet/docs/modules"
 output_dir = dirname(abspath(__file__))
 source_dir = dirname(abspath(join(__file__, "..")))
 
@@ -27,5 +27,5 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 # Must exclude venv rst files
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", 'venv']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "venv"]
 html_theme = "yummy_sphinx_theme"

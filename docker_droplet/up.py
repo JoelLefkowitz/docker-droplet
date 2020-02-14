@@ -4,10 +4,25 @@ from os.path import dirname, join
 from stat import S_IEXEC
 from subprocess import run
 
+
+import sys
+
+sys.path.append("..")
 from docker_droplet.terraform.template import create_config
 
 
-def set_up(droplet_name, ssh_key, token, project, domain, config_path):
+def set_up(droplet_name, ssh_key, token, project, domain, config_path) -> None:
+    """ 
+    Call functions to create a terraform configuration and then provision the infrastructure with an ansible playbook.
+    
+    Args:
+        droplet_name ([type]):
+        ssh_key ([type]):
+        token ([type]):
+        project ([type]):
+        domain ([type]):
+        config_path ([type]):
+    """
 
     # Create config from template
     with open(config_path, "w") as config_file:
