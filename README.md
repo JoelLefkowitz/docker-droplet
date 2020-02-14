@@ -33,13 +33,19 @@ Creating a single droplet provisioned to use docker should be quick. Ansible and
 
 ### Installing
 
-Install from pypi:
+Install the package from pypi:
 
 ```bash
 pip install docker-droplet
 ```
 
-## Running the app
+Alternatively, you can clone the repo:
+
+```bash
+git clone https://github.com/JoelLefkowitz/docker-droplet.git
+```
+
+## Running the package
 
 ```bash
 Usage:
@@ -53,7 +59,7 @@ docker-droplet up --droplet-name steve --ssh-key /home/.ssh/steve.pub --token 12
 ```
 Where the terraform configuration path defaults to "./config.tf"
 
-The droplet's name, ssh key path and digitalocean token can be given as environmnet variables:
+The droplet's name, ssh key path and digitalocean token will be synchronized with environment variables:
 ```bash
 export TF_VAR_DOCKER_DROPLET_DROPLET_NAME=steve
 export TF_VAR_DOCKER_DROPLET_SSH_KEY=/home/.ssh/steve.pub
@@ -61,7 +67,7 @@ export TF_VAR_DOCKER_DROPLET_TOKEN=12345
 docker-droplet up
 ```
 
-A domain and digital ocean project title can also be included
+A domain and digital ocean project title can also be specified
 ```bash
 docker-droplet up --domain example.com --project example
 ```
@@ -73,15 +79,39 @@ docker-droplet down --token 12345 --config-path /Workspace/config.tf
 
 ## Running tests
 
-Under development
+Tests are not included in the package build. Clone the repo to include all the source files.
+
+```bash
+python -m  setup.py tests
+```
 
 ### What is being tested
 
-Under development
+Unittests are used to test for appropriate behavior from:
+
+* The template's loader
+* The template's output
+* The interface's accessibility
+* The interface's path_validation
+* The interface's env_sync
+* The interface's default
+* The interface's required
 
 ## Docs
 
-Under development
+Docs are not included in the package build. Clone the repo to include all the source files.
+
+Full documentation can be generated locally:
+
+```bash
+python setup.py docs
+```
+
+To view the generated docs visit ./build/sphinx/html/docker_droplet/docs/modules.html:
+
+```bash
+open -a "Google Chrome" ./build/sphinx/html/docker_droplet/docs/modules.html
+```
 
 ## Contributing
 
@@ -89,7 +119,16 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository. 
+
+Bumpversion is used to version and tag changes.
+For example:
+
+```bash
+bumpversion patch
+```
+
+Releases are made on every major change.
 
 ## Author
 

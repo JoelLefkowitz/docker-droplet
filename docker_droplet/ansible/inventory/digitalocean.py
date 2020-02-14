@@ -6,6 +6,9 @@ from doboto.DO import DO
 
 
 def main():
+    """
+    Dynamic inventory for DO
+    """
 
     token = environ.get("TF_VAR_DOCKER_DROPLET_TOKEN")
     name = environ.get("TF_VAR_DOCKER_DROPLET_DROPLET_NAME")

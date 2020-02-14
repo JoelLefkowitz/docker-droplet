@@ -1,7 +1,7 @@
 import pathlib
-from stat import S_IEXEC
 from os import chmod, stat
-from os.path import join, dirname
+from os.path import dirname, join
+from stat import S_IEXEC
 from subprocess import run
 
 from docker_droplet.terraform.template import create_config
@@ -21,7 +21,7 @@ def set_up(droplet_name, ssh_key, token, project, domain, config_path):
     # Define ansible paths
     directory = pathlib.Path(__file__).parent.absolute()
     INVENTORY = join(directory, "ansible/inventory")
-    INVENTORY_SCRIPT = join(INVENTORY, 'digitalocean.py')
+    INVENTORY_SCRIPT = join(INVENTORY, "digitalocean.py")
     PLAYBOOK = join(directory, "ansible/playbook.yml")
 
     # Make sure dynamic inventory script is executable
