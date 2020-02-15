@@ -12,7 +12,7 @@ Create a single digital ocean droplet and provision it to run the docker engine 
 
 [license]: https://img.shields.io/github/license/joellefkowitz/docker-droplet
 
-[release]: https://img.shields.io/github/v/release/joellefkowitz/docker-droplet
+[release]: https://img.shields.io/github/v/tag/joellefkowitz/docker-droplet
 
 [pypi]: https://img.shields.io/pypi/v/docker-droplet (PyPi)
 [pypi_link]: https://pypi.org/project/docker-droplet

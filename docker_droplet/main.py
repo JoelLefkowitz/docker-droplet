@@ -5,15 +5,17 @@ Entrypoint for docker-droplet
 Parse command line arguments and call the selected handlers
 """
 
+import sys
+from os import getcwd, path, environ
 from inspect import cleandoc
-from os import environ
 from os.path import dirname, exists
 
 from docopt import docopt  # type: ignore
 
-import sys
+# If packaged multi_job will be scoped, otherwise append parent path.
+package_directory = path.realpath(path.join(__file__, "../.."))
+sys.path.append(package_directory)
 
-sys.path.append("..")
 from docker_droplet.down import tear_down
 from docker_droplet.exceptions import MissingVariable, PathNotResolvable
 from docker_droplet.up import set_up
@@ -60,10 +62,10 @@ class InputArg:
             PathNotResolvable: [description]
             PathNotResolvable: [description]
         """
-        if not exists(dirname(self.value)):
+        if not path.exists(path.dirname(self.value)):
             raise PathNotResolvable(self.name, self.value)
 
-        if check_file_exists and not exists(self.value):
+        if check_file_exists and not path.exists(self.value):
             raise PathNotResolvable(self.name, self.value)
 
     def sync_env(self) -> None:

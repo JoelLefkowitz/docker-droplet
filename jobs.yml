@@ -1,19 +1,25 @@
-# -*- Multi Job Config -*- 
+# Multi job config
 
 jobs:
   fmt:
     function: common/dev_actions/fmt:main
     targets:
-      - all
+      - docker_droplet
 
-  lint:
-    function: common/dev_actions/lint:main
-    targets:
-      - all
-      
-  pypi:
-    function: common/dev_actions/pypi:main
+  clean:
+    function: prod_actions/clean:main
+    context:
+      clean_dirs:
+        - build
+        - dist
+        - docker_droplet.egg-info
+
+  pypi-upload:
+    function: dev_actions/pypi_upload:main
+    context:
+      release_type: patch
+      twine_username: joellefkowitz
 
 projects:
-  docker-droplet:
-    path: ./docker-droplet
+  docker_droplet:
+    path: ../docker_droplet

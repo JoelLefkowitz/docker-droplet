@@ -1,5 +1,4 @@
-import pathlib
-
+from os import path
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -16,7 +15,7 @@ def create_config(droplet_name, ssh_key, project, domain) -> str:
     Returns:
         str: Configuration file as a string
     """
-    directory = pathlib.Path(__file__).parent.absolute()
+    directory = path.realpath(path.join(__file__, ".."))
     templateLoader = FileSystemLoader(searchpath=directory)
     templateEnv = Environment(loader=templateLoader)
 
