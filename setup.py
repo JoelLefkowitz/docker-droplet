@@ -7,7 +7,7 @@ from distutils.core import setup, Command
 from unittest import TestLoader, TextTestRunner
 from sphinx.setup_command import BuildDoc
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 
 class DocsCommand(BuildDoc):
@@ -52,7 +52,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/JoelLefkowitz/docker-droplet",
     include_package_data=True,
-    package_data={"": ["**/*yml", "**/*.jinja2"]},
     packages=find_packages(exclude=["tests"]),
     install_requires=[
         "docopts>=0.6.1",
