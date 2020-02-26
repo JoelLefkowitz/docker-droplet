@@ -1,5 +1,5 @@
 alabaster==0.7.12
-ansible==2.8.2
+ansible==2.8.8
 appdirs==1.4.3
 attrs==19.3.0
 Babel==2.8.0
