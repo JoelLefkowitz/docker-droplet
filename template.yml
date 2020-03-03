@@ -2,7 +2,7 @@ common: True
 package: True
 
 name: docker-droplet
-version: 1.0.7
+version: 1.0.8
 description: Create a single digital ocean droplet and provision it to run the docker engine over a simple cli
 
 author: Joel Lefkowitz
