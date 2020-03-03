@@ -1,25 +1,37 @@
-# Multi job config
-
 jobs:
   fmt:
-    function: common/dev_actions/fmt:main
+    command: black . --exclude venv
     targets:
-      - docker_droplet
+      - all
+
+  yenv:
+    function: yenv:main
+    context:
+      yenv-file: ../environment.yml
+      env-targets:
+        - docker-droplet
 
   clean:
-    function: prod_actions/clean:main
+    function: clean:main
     context:
       clean_dirs:
         - build
         - dist
-        - docker_droplet.egg-info
+        - docker-droplet.egg-info
 
   pypi-upload:
-    function: dev_actions/pypi_upload:main
+    function: pypi_upload:main
     context:
       release_type: patch
       twine_username: joellefkowitz
 
+
 projects:
-  docker_droplet:
-    path: ../docker_droplet
+  docker-droplet:
+    path: ../docker-droplet
+
+routines:
+  release:
+    - fmt
+    - clean
+    - pypi_upload

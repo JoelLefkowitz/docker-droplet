@@ -1,47 +1,39 @@
-"""
-Setup script for docker-droplet
-"""
-
+import subprocess
 from setuptools import find_packages, setup
-from distutils.core import setup, Command
-from unittest import TestLoader, TextTestRunner
-from sphinx.setup_command import BuildDoc
+from distutils.core import Command
 
 __version__ = "1.0.6"
 
-
-class DocsCommand(BuildDoc):
-    description = "Generate build configuration and make docs"
-
-    def initialize_options(self) -> None:
-        """  
-        Docs command override. Call the parent initializer then add version and config directory
-        """
-        super().initialize_options()
-        self.version = __version__
-        self.config_dir = "./docker_droplet/docs"
+with open("README.md", "r") as f:
+    long_description = f.read()
 
 
-class TestsCommand(Command):
-    description = "Discover and run tests"
+class UpdateDocs(Command):
+    description = "Update build configuration using sphinx-apidoc"
     user_options = []
 
     def initialize_options(self) -> None:
-        pass
+        self.version = __version__
 
     def finalize_options(self) -> None:
         pass
 
     def run(self) -> None:
-        """
-        Discover and run tests        
-        """
-        suite = TestLoader().discover("./docker_droplet/tests")
-        TextTestRunner().run(suite)
+        subprocess.run(["sphinx-apidoc", "-o", "docs/", "src/", "tests/"])
 
 
-with open("README.md", "r") as f:
-    long_description = f.read()
+class GenerateDocs(Command):
+    description = "Generate docs using sphinx-autodoc"
+    user_options = []
+
+    def initialize_options(self) -> None:
+        self.version = __version__
+
+    def finalize_options(self) -> None:
+        pass
+
+    def run(self) -> None:
+        subprocess.run(["sphinx-build", "docs/", "build/"])
 
 setup(
     name="docker-droplet",
@@ -58,7 +50,7 @@ setup(
         "ansible>=2.8.0",
         "jinja2>=2.11.1",
         "doboto>=0.6.1",
-        "sphinx>=2.4.1"
+        "sphinx>=2.4.1",
     ],
     entry_points={"console_scripts": ["docker-droplet=docker_droplet.main:main"]},
     cmdclass={"docs": DocsCommand, "test": TestsCommand},

@@ -1,1 +1,1 @@
-global-include *.yml *.jinja2
+graft docker_droplet

@@ -1,0 +1,12 @@
+common: True
+package: True
+
+name: docker-droplet
+version: 1.0.6
+description: Create a single digital ocean droplet and provision it to run the docker engine over a simple cli
+
+author: Joel Lefkowitz
+author_email: joellefkowitz@hotmail.com
+author_github: JoelLefkowitz
+github_url: https://github.com/JoelLefkowitz/docker-droplet
+twine_username: joellefkowitz 

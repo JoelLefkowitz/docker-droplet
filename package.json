@@ -1,0 +1,15 @@
+{
+  "name": "docker-droplet",
+  "version": "1.0.6",
+  "description": "Create a single digital ocean droplet and provision it to run the docker engine over a simple cli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joel Lefkowitz",
+  "license": "ISC",
+    "devDependencies": {
+    "dotenv": "^8.2.0",
+    "yenv": "^2.1.1"
+  }
+}
