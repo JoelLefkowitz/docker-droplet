@@ -1,51 +1,24 @@
-# docker-droplet
+# Docker droplet
+
 Create a single digital ocean droplet and provision it to run the docker engine over a simple cli.
 
 ## Status
 
-| Source  | Shields  |
-|-----|--------------|
-| Project  | ![license][license] ![release][release]  |
-| Publishers  | [![pypi][pypi]][pypi_link]    |
-| Downloads  | ![pypi_downloads][pypi_downloads] |
-| Raised  | [![issues][issues]][issues_link] [![pulls][pulls]][pulls_link]  |
+| Source     | Shields                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| Project    | ![release][release_shield] ![license][license_shield] ![dependents][dependents_shield]                             |
+| Health     | ![travis][travis_shield] ![codacy][codacy_shield] ![coverage][coverage_shield] ![readthedocs][readthedocs_shield]  |
+| Repository | ![issues][issues_shield] ![pulls][pulls_shield]                                                                    |
+| Publishers | ![pypi][pypi_shield] ![python_versions][python_versions_shield] ![pypi_downloads][pypi_downloads_shield]           |
+| Activity   | ![contributors][contributors_shield] ![monthly_commits][monthly_commits_shield] ![last_commit][last_commit_shield] |
 
-[license]: https://img.shields.io/github/license/joellefkowitz/docker-droplet
-
-[release]: https://img.shields.io/github/v/tag/joellefkowitz/docker-droplet
-
-[pypi]: https://img.shields.io/pypi/v/docker-droplet (PyPi)
-[pypi_link]: https://pypi.org/project/docker-droplet
-
-[python_version]: https://img.shields.io/pypi/pyversions/docker-droplet
-
-[pypi_downloads]: https://img.shields.io/pypi/dw/docker-droplet
-
-[issues]: https://img.shields.io/github/issues/joellefkowitz/docker-droplet (Issues)
-[issues_link]: https://github.com/JoelLefkowitz/docker-droplet/issues
-
-[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/docker-droplet (Pull requests)
-[pulls_link]: https://github.com/JoelLefkowitz/docker-droplet/pulls  
-
-## Motivation
-
-Creating a single droplet provisioned to use docker should be quick. Ansible and Terraform are the appropriate tools but may take long to configure for a single droplet. This package provides a simple cli to streamline the use of these tools.
-
-### Installing
-
-Install the package from pypi:
+## Installation
 
 ```bash
 pip install docker-droplet
 ```
 
-Alternatively, you can clone the repo:
-
-```bash
-git clone https://github.com/JoelLefkowitz/docker-droplet.git
-```
-
-## Running the package
+## Usage
 
 ```bash
 Usage:
@@ -54,12 +27,15 @@ Usage:
 ```
 
 To create a terraform configuration and run an ansible playbook to install docker:
+
 ```bash
 docker-droplet up --droplet-name steve --ssh-key /home/.ssh/steve.pub --token 12345 --config-path /Workspace/config.tf
 ```
-Where the terraform configuration path defaults to "./config.tf"
+
+The terraform configuration path defaults to "./config.tf"
 
 The droplet's name, ssh key path and digitalocean token will be synchronized with environment variables:
+
 ```bash
 export TF_VAR_DOCKER_DROPLET_DROPLET_NAME=steve
 export TF_VAR_DOCKER_DROPLET_SSH_KEY=/home/.ssh/steve.pub
@@ -68,74 +44,144 @@ docker-droplet up
 ```
 
 A domain and digital ocean project title can also be specified
+
 ```bash
 docker-droplet up --domain example.com --project example
 ```
 
 To remove the structure simply take it down:
+
 ```bash
 docker-droplet down --token 12345 --config-path /Workspace/config.tf
 ```
 
-## Running tests
+## Tests
 
-Tests are not included in the package build. Clone the repo to include all the source files.
-
-```bash
-python -m  setup.py test
-```
-
-### What is being tested
-
-Unittests are used to test for appropriate behavior from:
-
-* The template's loader
-* The interface's argument validation
-* The interface's path_validation
-
-## Docs
-
-Docs are not included in the package build. Clone the repo to include all the source files.
-
-Full documentation can be generated locally:
+To run unit tests:
 
 ```bash
-python setup.py docs
+grunt tests:unit
 ```
 
-To view the generated docs visit ./build/sphinx/html/docker_droplet/docs/modules.html:
+To generate a coverage report:
 
 ```bash
-open -a "Google Chrome" ./build/sphinx/html/docker_droplet/docs/modules.html
+grunt tests:coverage
 ```
 
-## Contributing
+## Documentation
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+This repository's documentation is hosted on [readthedocs][readthedocs].
+
+To generate the sphinx configuration:
+
+```bash
+grunt docs:generate
+```
+
+Then build the documentation:
+
+```bash
+grunt docs:build
+```
+
+## Tooling
+
+To run linters:
+
+```bash
+grunt lint
+```
+
+To run formatters:
+
+```bash
+grunt format
+```
+
+Before commiting new code:
+
+```bash
+grunt precommit
+```
+
+This will run linters, formaters, generate a test coverage report and the sphinx configuration.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository. 
+This repository adheres to semantic versioning standards.
+For more inforamtion on semantic versioning visit [SemVer][semver].
 
-Bumpversion is used to version and tag changes.
+Bump2version is used to version and tag changes.
 For example:
 
 ```bash
-bumpversion patch
+bump2version patch
 ```
 
-Releases are made on every major change.
+## Changelog
 
-## Author
+Please read this repository's [CHANGELOG](CHANGELOG.md) for details on changes that have been made.
 
-* **Joel Lefkowitz** - *Initial work* - [JoelLefkowitz](https://github.com/JoelLefkowitz)
+## Contributing
 
-See also the list of contributors who participated in this project.
+Please read this repository's guidelines on [CONTRIBUTING](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-## License
+## Contributors
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+- **Joel Lefkowitz** - _Initial work_ - [Joel Lefkowitz][joellefkowitz]
 
-## Acknowledgments
+[![Buy Me A Coffee][coffee_button]][coffee]
 
-None
+## Remarks
+
+Lots of love to the open source community!
+
+![Be kind][be_kind]
+
+<!-- Github links -->
+
+[pulls]: https://github.com/JoelLefkowitz/docker-droplet/pulls
+[issues]: https://github.com/JoelLefkowitz/docker-droplet/issues
+
+<!-- External links -->
+
+[readthedocs]: https://docker-droplet.readthedocs.io/en/latest/
+[semver]: http://semver.org/
+[coffee]: https://www.buymeacoffee.com/joellefkowitz
+[coffee_button]: https://cdn.buymeacoffee.com/buttons/default-blue.png
+[be_kind]: https://media.giphy.com/media/osAcIGTSyeovPq6Xph/giphy.gif
+
+<!-- Acknowledgments -->
+
+[joellefkowitz]: https://github.com/JoelLefkowitz
+
+<!-- Project shields -->
+
+[release_shield]: https://img.shields.io/github/v/tag/joellefkowitz/docker-droplet
+[license_shield]: https://img.shields.io/github/license/joellefkowitz/docker-droplet
+[dependents_shield]: https://img.shields.io/librariesio/dependent-repos/pypi/docker-droplet
+
+<!-- Health shields -->
+
+[travis_shield]: https://img.shields.io/travis/joellefkowitz/docker-droplet
+[codacy_shield]: https://img.shields.io/codacy/coverage/docker-droplet
+[coverage_shield]: https://img.shields.io/codacy/grade/docker-droplet
+[readthedocs_shield]: https://img.shields.io/readthedocs/docker-droplet
+
+<!-- Repository shields -->
+
+[issues_shield]: https://img.shields.io/github/issues/joellefkowitz/docker-droplet
+[pulls_shield]: https://img.shields.io/github/issues-pr/joellefkowitz/docker-droplet
+
+<!-- Publishers shields -->
+
+[pypi_shield]: https://img.shields.io/pypi/v/docker-droplet
+[python_versions_shield]: https://img.shields.io/pypi/pyversions/docker-droplet
+[pypi_downloads_shield]: https://img.shields.io/pypi/dw/docker-droplet
+
+<!-- Activity shields -->
+
+[contributors_shield]: https://img.shields.io/github/contributors/joellefkowitz/docker-droplet
+[monthly_commits_shield]: https://img.shields.io/github/commit-activity/m/joellefkowitz/docker-droplet
+[last_commit_shield]: https://img.shields.io/github/last-commit/joellefkowitz/docker-droplet
