@@ -1,12 +1,9 @@
+import sys
 import unittest
 from os.path import abspath
-from subprocess import check_output, CalledProcessError
-from docopt import DocoptExit
-
-import sys
+from subprocess import CalledProcessError, check_output
 
 sys.path.append("..")
-from docker_droplet.exceptions import MissingVariable, PathNotResolvable
 
 
 class TestInterface(unittest.TestCase):
@@ -21,7 +18,9 @@ class TestInterface(unittest.TestCase):
             call_interface(name="steve", ssh_key="99", token="12345")
 
 
-def call_interface(name=None, ssh_key=None, token=None, config_path=None) -> None:
+def call_interface(
+    name=None, ssh_key=None, token=None, config_path=None
+) -> None:
     call = ["python", "main.py", "up"]
     if name:
         call.append(f"--droplet-name={name}")

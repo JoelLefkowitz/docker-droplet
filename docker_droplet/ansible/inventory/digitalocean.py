@@ -7,7 +7,7 @@ from doboto.DO import DO
 
 def main() -> None:
     """
-    Dynamic inventory script for Digitalocean. Targets a single specified droplet. Gets access token and droplet name from environment variables. 
+    Dynamic inventory script for Digitalocean. Targets a single specified droplet. Gets access token and droplet name from environment variables.
     """
 
     token = environ.get("TF_VAR_DOCKER_DROPLET_TOKEN")
@@ -25,7 +25,13 @@ def main() -> None:
 
     print(
         json.dumps(
-            {"_meta": {"hostvars": {}}, "instances": {"hosts": hosts, "vars": {},},}
+            {
+                "_meta": {"hostvars": {}},
+                "instances": {
+                    "hosts": hosts,
+                    "vars": {},
+                },
+            }
         )
     )
 

@@ -1,12 +1,15 @@
-import unittest
 import pathlib
+import unittest
+
 from jinja2 import Environment, FileSystemLoader
 from jinja2.exceptions import TemplateNotFound
 
 
 class TestTemplate(unittest.TestCase):
     def test_loader(self) -> None:
-        directory = pathlib.Path("docker_droplet/terraform/").absolute()
+        directory = pathlib.Path(
+            "docker_droplet/terraform/"
+        ).absolute()
         templateLoader = FileSystemLoader(searchpath=directory)
         templateEnv = Environment(loader=templateLoader)
 

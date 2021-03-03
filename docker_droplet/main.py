@@ -6,19 +6,22 @@ Parse command line arguments and call the selected handlers
 """
 
 import sys
-from os import getcwd, path, environ
 from inspect import cleandoc
-from os.path import dirname, exists
+from os import environ, path
 
 from docopt import docopt  # type: ignore
+
+from docker_droplet.down import tear_down
+from docker_droplet.exceptions import (
+    MissingVariable,
+    PathNotResolvable,
+)
+from docker_droplet.up import set_up
 
 # If packaged multi_job will be scoped, otherwise append parent path.
 package_directory = path.realpath(path.join(__file__, "../.."))
 sys.path.append(package_directory)
 
-from docker_droplet.down import tear_down
-from docker_droplet.exceptions import MissingVariable, PathNotResolvable
-from docker_droplet.up import set_up
 
 CLI = cleandoc(
     """
@@ -44,9 +47,9 @@ class InputArg:
     def assign_default(self, default: str) -> None:
         """
         If the object's value attribute is None the assign a default value
-        
+
         Args:
-            default (str): 
+            default (str):
         """
         if not self.value:
             self.value = default
@@ -54,10 +57,10 @@ class InputArg:
     def validate_path(self, check_file_exists: bool = False) -> None:
         """
         Check if path's directory is resolvable. Optionally check if the path itself exists.
-        
+
         Args:
             check_file_exists (bool, optional): [description]. Defaults to False.
-        
+
         Raises:
             PathNotResolvable: [description]
             PathNotResolvable: [description]
@@ -91,7 +94,9 @@ def main() -> None:
     Entry point for docker-droplet
     """
     arguments = docopt(CLI)
-    droplet_name = InputArg("droplet_name", arguments["--droplet-name"])
+    droplet_name = InputArg(
+        "droplet_name", arguments["--droplet-name"]
+    )
     ssh_key = InputArg("ssh_key", arguments["--ssh-key"])
     token = InputArg("token", arguments["--token"])
     project = InputArg("project", arguments["--project"])
