@@ -10,9 +10,9 @@
     ],
     "frameworks": [],
     "paradigms": [
-      "Functional"
+      "Object oriented"
     ],
-    "lifecycle": "Production/Stable",
-    "publisher": "PyPi"
+    "lifecycle": "Alpha",
+    "publisher": "PyPI"
   }
 }
