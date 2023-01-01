@@ -5,6 +5,7 @@
   },
   "metadata": {
     "documentation": "https://docker-droplet.readthedocs.io/en/latest",
+    "packages": "https://pypi.org/project/docker-droplet",
     "languages": [
       "Python"
     ],
