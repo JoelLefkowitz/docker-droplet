@@ -1,25 +1,19 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env python
 """
 Entrypoint for docker-droplet
 Parse command line arguments and call the selected handlers
 """
 
+import os
 import sys
-from inspect import cleandoc
-from os import environ, path
-
+from .down import tear_down
+from .exceptions import MissingVariable, PathNotResolvable
+from .up import set_up
 from docopt import docopt  # type: ignore
-
-from docker_droplet.down import tear_down
-from docker_droplet.exceptions import (
-    MissingVariable,
-    PathNotResolvable,
-)
-from docker_droplet.up import set_up
+from inspect import cleandoc
 
 # If packaged multi_job will be scoped, otherwise append parent path.
-package_directory = path.realpath(path.join(__file__, "../.."))
+package_directory = os.path.realpath(os.path.join(__file__, "../.."))
 sys.path.append(package_directory)
 
 
@@ -65,21 +59,21 @@ class InputArg:
             PathNotResolvable: [description]
             PathNotResolvable: [description]
         """
-        if not path.exists(path.dirname(self.value)):
+        if not os.path.exists(os.path.dirname(self.value)):
             raise PathNotResolvable(self.name, self.value)
 
-        if check_file_exists and not path.exists(self.value):
+        if check_file_exists and not os.path.exists(self.value):
             raise PathNotResolvable(self.name, self.value)
 
     def sync_env(self) -> None:
         """
         Synchronize the object's value with the environment variable TF_VAR_<name>
         """
-        NAME = "TF_VAR_DOCKER_DROPLET_" + self.name.upper()
+        name = "TF_VAR_DOCKER_DROPLET_" + self.name.upper()
         if self.value:
-            environ.putenv(NAME, self.value)
+            os.environ.setdefault(name, self.value)
         else:
-            self.value = environ.get(NAME, None)
+            self.value = os.environ.get(name, None)
 
     def set_required(self) -> None:
         if not self.value:
@@ -94,9 +88,7 @@ def main() -> None:
     Entry point for docker-droplet
     """
     arguments = docopt(CLI)
-    droplet_name = InputArg(
-        "droplet_name", arguments["--droplet-name"]
-    )
+    droplet_name = InputArg("droplet_name", arguments["--droplet-name"])
     ssh_key = InputArg("ssh_key", arguments["--ssh-key"])
     token = InputArg("token", arguments["--token"])
     project = InputArg("project", arguments["--project"])
@@ -120,7 +112,6 @@ def main() -> None:
         set_up(
             droplet_name.value,
             ssh_key.value,
-            token.value,
             project.value,
             domain.value,
             config_path.value,

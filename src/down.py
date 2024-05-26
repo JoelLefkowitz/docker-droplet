@@ -1,8 +1,8 @@
-from os.path import dirname
+import os
 from subprocess import run
 
 
-def tear_down(token, config_path) -> None:
+def tear_down(_, config_path) -> None:
     """
     Destroys the terraform infrastructure specified in the config path provided.
 
@@ -10,4 +10,4 @@ def tear_down(token, config_path) -> None:
         token ([type]): Digitalocean access token
         config_path ([type]): Terraform config path
     """
-    run(["terraform", "destroy"], cwd=dirname(config_path))
+    run(["terraform", "destroy"], cwd=os.path.dirname(config_path), check=False)

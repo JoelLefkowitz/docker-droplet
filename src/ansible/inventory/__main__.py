@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 import json
-from os import environ
-
+import os
 from doboto.DO import DO
 
 
 def main() -> None:
     """
-    Dynamic inventory script for Digitalocean. Targets a single specified droplet. Gets access token and droplet name from environment variables.
+    Dynamic inventory script for Digitalocean. Targets a single specified
+    droplet. Gets access token and droplet name from environment variables.
     """
 
-    token = environ.get("TF_VAR_DOCKER_DROPLET_TOKEN")
-    name = environ.get("TF_VAR_DOCKER_DROPLET_DROPLET_NAME")
+    token = os.environ.get("TF_VAR_DOCKER_DROPLET_TOKEN")
+    name = os.environ.get("TF_VAR_DOCKER_DROPLET_DROPLET_NAME")
 
     client = DO(token=token)
     hosts = [

@@ -1,7 +1,0 @@
-project: docker-droplet
-version: 1.0.8
-author: Joel Lefkowitz
-verbose_name: Docker droplet
-html_title: Docker droplet
-github_url: JoelLefkowitz/docker-droplet
-apidoc_module_dir: docker_droplet

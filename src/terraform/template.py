@@ -1,5 +1,4 @@
-from os import path
-
+import os
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -16,16 +15,12 @@ def create_config(droplet_name, ssh_key, project, domain) -> str:
     Returns:
         str: Configuration file as a string
     """
-    directory = path.realpath(path.join(__file__, ".."))
-    templateLoader = FileSystemLoader(searchpath=directory)
-    templateEnv = Environment(loader=templateLoader)
+    directory = os.path.realpath(os.path.join(__file__, ".."))
+    template_loader = FileSystemLoader(searchpath=directory)
+    template_env = Environment(loader=template_loader)
 
-    print(templateEnv)
-
-    providers_template = templateEnv.get_template("providers.jinja2")
-    resources_template = templateEnv.get_template(
-        "digitalocean.jinja2"
-    )
+    providers_template = template_env.get_template("providers.jinja2")
+    resources_template = template_env.get_template("digitalocean.jinja2")
 
     providers_config = providers_template.render()
     resources_config = resources_template.render(
@@ -34,4 +29,5 @@ def create_config(droplet_name, ssh_key, project, domain) -> str:
         project=project,
         domain=domain,
     )
+
     return "\n\n".join([providers_config, resources_config])
