@@ -1,6 +1,6 @@
 # Docker droplet
 
-Create a single digital ocean droplet and provision it to run the docker engine over a simple cli.
+Create a single digital ocean droplet and provision it to run docker.
 
 ![Review](https://img.shields.io/github/actions/workflow/status/JoelLefkowitz/docker-droplet/review.yml)
 ![Version](https://img.shields.io/pypi/v/docker-droplet)
@@ -8,7 +8,7 @@ Create a single digital ocean droplet and provision it to run the docker engine 
 ![Quality](https://img.shields.io/codacy/grade/8f8992dd03d54b68b23c9e3879db7f86)
 ![Coverage](https://img.shields.io/codacy/coverage/8f8992dd03d54b68b23c9e3879db7f86)
 
-## Installation
+## Installing
 
 ```bash
 pip install docker-droplet

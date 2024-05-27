@@ -4,7 +4,7 @@ requires = ["hatchling"]
 
 [project]
 name = "docker-droplet"
-description = "Create a single digital ocean droplet and provision it to run the docker engine over a simple cli."
+description = "Create a single digital ocean droplet and provision it to run docker."
 version = "1.0.7"
 
 keywords = ["docker", "droplet", "digitalocean"]
